@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My 5-Page Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            transition: margin-left 0.3s ease; /* Smooth transition for content shift */
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+            position: fixed; /* Fix the header to the top */
+            top: 0;
+            left: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1{
+          margin: 0;
+        }
+
+        .sidebar {
+            background-color: #333;
+            color: white;
+            width: 0;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            transition: 0.3s ease;
+            padding-top: 4rem; /* Height of the header */
+            z-index: 99; /* Sit below the header */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.open {
+            width: 250px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li a {
+            padding: 1rem;
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 5rem 1rem 1rem 1rem; /* Add padding-top to account for fixed header */
+            margin-left: 0; /* Will change when sidebar opens */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .toggle-button {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            position: fixed; /* Fix button to the left */
+            top: 0.5rem;
+            left: 0.5rem;
+            z-index: 101; /* Sit above header and sidebar */
+        }
+
+        .toggle-button:hover {
+            background-color: #ddd;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto; /* Push footer to bottom */
+        }
+
+        .main-content {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Page specific styles */
+        .home-section {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .about-section {
+            background-color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .services-section {
+            background-color: #f0f0f0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .portfolio-section {
+            background-color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .contact-section {
+            background-color: #f0f0f0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Add this media query for screens smaller than 768px (tablets) */
+        @media (max-width: 768px) {
+            .sidebar.open {
+                width: 100%; /* Make sidebar full width on small screens */
+            }
+            .content.open {
+                margin-left: 0; /* Remove margin on small screens */
+            }
+            .toggle-button {
+                left: 0.5rem;
+            }
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1 1 300px; /* Minimum width of 300px, grow equally */
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-info ul li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .button {
+            padding: 0.75rem 1.5rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 0.3rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for the icon (replace with actual icon if needed) */
+        .contact-info ul li::before {
+            content: '•'; /* Placeholder for a bullet or icon */
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ROYALLY COLLECTION</h1>
+    </header>
+    <button class="toggle-button">☰ Menu</button>
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <main class="main-content">
+            <section class="contact-section">
+                <h2>CONTACT ROYALLY COLLECTION VIA:</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p>We'd love to hear from you! Please use the contact details below or fill out the form.</p>
+                        <ul>
+                            <li><strong>Address:</strong> P.O.BOX 190-50100, Kakamega, Kenya</li>
+                            <li><strong>Phone:</strong> +254 716 013 390</li>
+                            <li><strong>Email:</strong> info@yourbusiness.com</li>
+                            <li><strong>Whatsaap:</strong> +254 716 013 390</li>
+                        </ul>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form action="#" method="POST">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject:</label>
+                                <input type="text" id="subject" name="subject">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message:</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 ROYALLY COLLECTION. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const toggleButton = document.querySelector('.toggle-button');
+        const sidebar = document.querySelector('.sidebar');
+        const content = document.querySelector('.content');
+        const navLinks = document.querySelectorAll('.sidebar ul li a');
+
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            content.classList.toggle('open');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                content.classList.remove('open');
+            });
+        });
+
+        // Handle initial load and resize for correct layout
+        function updateLayout() {
+            if (window.innerWidth < 768) {
+                content.classList.remove('open'); // Ensure content is not shifted on small screens
+                sidebar.classList.remove('open');
+            }
+        }
+
+        window.addEventListener('load', updateLayout);
+        window.addEventListener('resize', updateLayout);
+    </script>
+</body>
+</html>

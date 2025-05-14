@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My 5-Page Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            transition: margin-left 0.3s ease; /* Smooth transition for content shift */
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+            position: fixed; /* Fix the header to the top */
+            top: 0;
+            left: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1{
+          margin: 0;
+        }
+
+        .sidebar {
+            background-color: #333;
+            color: white;
+            width: 0;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            transition: 0.3s ease;
+            padding-top: 4rem; /* Height of the header */
+            z-index: 99; /* Sit below the header */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.open {
+            width: 250px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0; /* Remove default margin between list items */
+        }
+
+        .sidebar ul li a {
+            padding: 1rem;
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+
+        .sidebar ul li.active {
+            background-color: #555;
+        }
+
+        .sidebar ul li ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Hide the submenu by default */
+            background-color: #444; /* Darker background for submenu */
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 150px;
+            z-index: 1;
+        }
+
+        .sidebar ul li:hover ul {
+            display: block; /* Show the submenu when the parent li is hovered */
+        }
+
+        .sidebar ul li ul li a{
+          padding-left: 2rem;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 5rem 1rem 1rem 1rem; /* Add padding-top to account for fixed header */
+            margin-left: 0; /* Will change when sidebar opens */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .toggle-button {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            position: fixed; /* Fix button to the left */
+            top: 0.5rem;
+            left: 0.5rem;
+            z-index: 101; /* Sit above header and sidebar */
+        }
+
+        .toggle-button:hover {
+            background-color: #ddd;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto; /* Push footer to bottom */
+        }
+
+        .main-content {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Page specific styles */
+        .home-section {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .about-section {
+            background-color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .services-section {
+            background-color: #f0f0f0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .portfolio-section {
+            background-color: #e0e0e0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        .contact-section {
+            background-color: #f0f0f0;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        /* Add this media query for screens smaller than 768px (tablets) */
+        @media (max-width: 768px) {
+            .sidebar.open {
+                width: 100%; /* Make sidebar full width on small screens */
+            }
+            .content.open {
+                margin-left: 0; /* Remove margin on small screens */
+            }
+            .toggle-button {
+                left: 0.5rem;
+            }
+        }
+
+        .services-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-section {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex; /* Enable flexbox for the service section */
+            flex-direction: column;
+        }
+
+        .service-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-section p {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 1rem; /* Add margin before the link */
+        }
+
+        .service-section a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: auto; /* Push the link to the bottom */
+        }
+
+        .service-section a:hover {
+            text-decoration: underline;
+        }
+
+        .service-details {
+            display: none;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .service-section.show-details .service-details {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ROYALLY COLLECTION</h1>
+    </header>
+    <button class="toggle-button">☰ Menu</button>
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="active">
+                <a href="services.html">Services</a>
+                <ul>
+                    <li><a href="#">Service 1</a></li>
+                    <li><a href="#">Service 2</a></li>
+                    <li><a href="#">Service 3</a></li>
+                </ul>
+            </li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+             <li><a href="cart.html">Cart</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <main class="main-content">
+            <section class="services-section">
+                <h2>Services</h2>
+                <div class="services-content">
+                    <div class="service-section">
+                        <h3>Service 1: Online Shopping</h3>
+                        <p>We provide a platform for you to sell your products online.</p>
+                        <div class="button-container" style="display: flex; gap: 10px; margin-top: 1rem;">
+                            <a href="#" class="learn-more-link" style="color: #007bff; text-decoration: none; font-weight: bold;">Learn More</a>
+                            <a href="cart" class="shop-with-us-link" style="color: #aaa3a7; text-decoration: none; font-weight: bold;">Shop With Us</a>
+                        </div>
+                        <div class="service-details">
+                            <h4>Online Shopping Platform Features</h4>
+                            <ul>
+                                <li><strong>Product Catalog:</strong> Create and manage your product listings with detailed descriptions, images, and pricing.</li>
+                                <li><strong>Shopping Cart:</strong> Allow customers to add products to their cart and manage their selections.</li>
+                                <li><strong>Order Management:</strong> Process orders, track shipping, and manage inventory.</li>
+                                <li><strong>Payment Gateway Integration:</strong> Securely accept payments through various methods (e.g., credit card, PayPal).</li>
+                                <li><strong>Customer Accounts:</strong> Enable customers to create accounts, save their information, and view order history.</li>
+                                 <li><strong>Mobile Responsiveness:</strong> Ensure your online store works seamlessly on all devices (desktops, tablets, and smartphones).</li>
+                                  <li><strong>Search Engine Optimization (SEO):</strong> Optimize your store to rank well in search engine results.</li>
+                            </ul>
+                            <h4>Benefits of Online Shopping</h4>
+                            <ul>
+                                <li><strong>Increased Reach:</strong> Sell your products to a global audience, not just local customers.</li>
+                                <li><strong>24/7 Availability:</strong> Your store is always open, allowing customers to shop at any time.</li>
+                                <li><strong>Lower Overhead Costs:</strong> Reduce expenses associated with a physical storefront (e.g., rent, utilities).</li>
+                                <li><strong>Data-Driven Insights:</strong> Track customer behavior and sales data to make informed business decisions.</li>
+                                <li><span style ="color: #6a1b9a;"><strong>Convenience for Customers:</strong></span> Provide a hassle-free shopping experience for your customers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="service-section">
+                        <h3>Service 2: Guidance for Startup Entrepreneurs</h3>
+                        <p>We offer guidance and mentorship for new business owners.</p>
+                        <a href="#" class="learn-more-link" style="color: #db0fbf; text-decoration: none; font-weight: bold;">Learn More</a>
+                        <div class="service-details">
+                            <h2>Service 2: Guidance for Startup Entrepreneurs</h2>
+                            <p>Service 2, "Guidance for Startup Entrepreneurs," is designed to assist new business owners in navigating the complexities of launching and growing their ventures. We offer mentorship and resources to help you at every stage of your entrepreneurial journey. Here's a breakdown of what we provide:</p>
+
+                            <h3>Starting Your Business</h3>
+                            <ul>
+                                <li><span style="color: #6a1b9a; font-weight: bold;">Business Plan Development:</span> We help you create a comprehensive business plan, outlining your goals, strategies, and financial projections. A well-structured business plan is crucial for securing funding and guiding your business's growth.</li>
+                                <li><span style="color: #00897b; font-weight: bold;">Funding Options:</span> We provide information and advice on various funding sources, including loans, grants, angel investors, and venture capital. We'll help you determine the best funding strategy for your specific needs.</li>
+                                <li><span style="color: #d84315; font-weight: bold;">Legal and Regulatory Compliance:</span> We guide you through the legal requirements of starting a business, such as registering your business, obtaining licenses and permits, and understanding relevant regulations.</li>
+                            </ul>
+
+                            <h3>Growing Your Business</h3>
+                            <ul>
+                                <li><span style="color: #1e88e5; font-weight: bold;">Market Analysis:</span> We assist you in conducting thorough market research to understand your target audience, competitors, and industry trends. This information is vital for making informed business decisions.</li>
+                                <li><span style="color: #ff6f61; font-weight: bold;">Sales and Marketing Strategies:</span> We help you develop effective sales and marketing strategies to reach your target market, attract customers, and drive revenue. This includes online marketing, branding, and customer relationship management.</li>
+                                <li><span style="color: #43a047; font-weight: bold;">Team Building and Management:</span> We offer guidance on building a strong team, including hiring, training, and managing employees. We'll help you create a positive work environment and foster a productive team dynamic.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="service-section">
+                        <h3>Service 3</h3>
+                        <p>Description of service 3.</p>
+                        <a href="#">Learn More</a>
+                        <div class="service-details">
+                            <p>Detailed information about service 3.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 ROYALLY COLLECTION. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const toggleButton = document.querySelector('.toggle-button');
+        const sidebar = document.querySelector('.sidebar');
+        const content = document.querySelector('.content');
+        const navLinks = document.querySelectorAll('.sidebar ul li a');
+        const serviceLink = document.querySelector('.sidebar ul li.active');
+        const learnMoreLinks = document.querySelectorAll('.learn-more-link');
+
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            content.classList.toggle('open');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                content.classList.remove('open');
+            });
+        });
+
+        // serviceLink.addEventListener('click', (e) => {
+        //     e.preventDefault(); // Prevent the default link behavior
+        //     serviceLink.classList.toggle('active'); // Toggle the active class on the parent li
+        // });
+
+        learnMoreLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const serviceSection = e.target.closest('.service-section');
+                serviceSection.classList.toggle('show-details');
+            });
+        });
+
+        // Handle initial load and resize for correct layout
+        function updateLayout() {
+            if (window.innerWidth < 768) {
+                content.classList.remove('open'); // Ensure content is not shifted on small screens
+                sidebar.classList.remove('open');
+            }
+        }
+        window.addEventListener('load', updateLayout);
+        window.addEventListener('resize', updateLayout);
+    </script>
+</body>
+</html>

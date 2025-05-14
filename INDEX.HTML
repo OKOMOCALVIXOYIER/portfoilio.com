@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Captivating Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #fdfcfc 0%, #e0f2f7 100%);
+    color: #444;
+    line-height: 1.7;
+}
+
+nav {
+    background: linear-gradient(to right, #64b5f6, #42a5f5);
+    color: white;
+    padding: 1.2em 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 960px;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffeb3b;
+}
+
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0%;
+    height: 2px;
+    background-color: #ffeb3b;
+    transition: width 0.3s ease, left 0.3s ease, right 0.3s ease;
+}
+
+nav ul li a:hover::before {
+    width: 100%;
+    left: 0;
+    right: auto;
+}
+
+#hero {
+    background: linear-gradient(135deg, #bbdefb 0%, #e1f5fe 100%);
+    padding: 100px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.hero-content {
+    flex: 1;
+    animation-delay: 0.2s !important;
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    color: #3f51b5;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.hero-content .lead {
+    font-size: 1.3em;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.hero-image {
+    flex: 1;
+    max-width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation-delay: 0.5s !important;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hero-image img:hover {
+    transform: scale(1.05);
+}
+
+.button {
+    display: inline-block;
+    background-color: #ffc107;
+    color: #212121;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+    background-color: #ffca28;
+    transform: translateY(-2px);
+}
+
+section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 2.8em;
+    color: #3f51b5;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
+    display: inline-block;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: #ffc107;
+}
+
+#about {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+#about p {
+    max-width: 850px;
+    margin: 0 auto 40px;
+    color: #666;
+    font-size: 1.1em;
+}
+
+.about-details {
+    display: flex;
+    justify-content: space-around;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: left;
+    flex-wrap: wrap;
+}
+
+.about-details div {
+    flex: 1;
+    padding: 30px;
+    border-radius: 7px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    background-color: #f9f9f9;
+    margin: 15px;
+    min-width: 300px;
+}
+
+.about-details h3 {
+    color: #ff9800;
+    margin-bottom: 12px;
+    font-size: 1.4em;
+}
+
+#skills {
+    background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 25px;
+    max-width: 960px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 30px;
+    border-radius: 7px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.skill-item {
+    text-align: center;
+    padding: 25px;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    transition: transform 0.2s ease-in-out;
+}
+
+.skill-item:hover {
+    transform: translateY(-3px);
+}
+
+.skill-item img {
+    max-width: 70px;
+    height: auto;
+    margin-bottom: 12px;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.skill-item p {
+    color: #555;
+    margin: 0;
+    font-weight: 500;
+}
+
+#projects {
+    background: linear-gradient(135deg, #c8e6c9 0%, #e8f5e9 100%);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.project-card {
+    background-color: white;
+    border-radius: 7px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+}
+
+.project-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 2px solid #81c784;
+}
+
+.project-card h3 {
+    padding: 20px;
+    margin: 0;
+    color: #388e3c;
+    text-align: left;
+    font-size: 1.5em;
+}
+
+.project-card p {
+    padding: 0 20px 20px;
+    margin: 0;
+    color: #666;
+    text-align: left;
+    font-size: 1.1em;
+}
+
+.project-card a {
+    display: block;
+    background-color: #81c784;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.project-card a:hover {
+    background-color: #689f38;
+}
+
+#contact {
+    background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
+    padding-bottom: 100px;
+}
+
+#contact p {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    color: #777;
+    font-size: 1.1em;
+}
+
+#contact form {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 30px;
+    border-radius: 7px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 1.1em;
+}
+
+#contact textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+#contact button[type="submit"] {
+    background-color: #ffc107;
+    color: #212121;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#contact button[type="submit"]:hover {
+    background-color: #ffca28;
+    transform: translateY(-2px);
+}
+
+footer {
+    background: linear-gradient(to right, #64b5f6, #42a5f5);
+    color: white;
+    text-align: center;
+    padding: 1.5em 0;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Captivating Animations (script.js) --- */
+
+
+/* --- Media Queries for Responsiveness --- */
+@media (max-width: 768px) {
+    #hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 80px 20px;
+    }
+
+    .hero-image {
+        max-width: 80%;
+    }
+
+    .about-details {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-details div {
+        margin: 20px auto;
+        max-width: 90%;
+        padding: 25px;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        padding: 20px;
+    }
+
+    .skill-item {
+        padding: 20px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        
+    }
+
+    .project-card {
+        margin-bottom: 20px;
+    }
+
+    #contact form {
+        padding: 20px;
+    }
+}
+    </style>
+</head>
+<body>
+    <section id="hero">
+        <div class="hero-content">
+            <h1>HELLOW, I'M OKOMO CALVIX OYIER</h1>
+            <p class="lead">Expert in Information System and Knowledge Management.</p>
+            <button id="learnMoreBtn" class="button">Learn More</button>
+        </div>
+        <div class="hero-image">
+            <img src="oco1.jpg" alt="Your Profile Picture">
+        </div>
+    </section>
+
+    <div id="learnMoreModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p>I am an Information Systems and Knowledge Management professional, who is strategic orchestrator of organizational intelligence. As far as information is concerned I design, implement, and manage the technological infrastructure (information systems) that captures, stores, organizes, and disseminates crucial data and information. Simultaneously, I cultivate and leverage the collective knowledge within an organization (knowledge management) through processes, tools, and cultural initiatives. Essentially, I ensure the right information reaches the right people at the right time, fostering better decision-making, innovation, and overall organizational effectiveness by bridging the gap between technology and human understanding.</p>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p><span style="color: #a9e30a; font-family: Arial, Helvetica, sans-serif; font-style: italic;">Okomo Calvix Oyier is currently pursuing a Bachelor's degree in Information System and Knowledge Management at Masinde Muliro University of Science and Technology (MMUST), with an expected graduation date yet to be determined (2022 to Date). This ongoing education signifies a dedicated pursuit of theoretical and practical knowledge in the field. Prior to university, Okomo Calvix completed his secondary education at BL. Tezza Secondary School (2017-2021), where he studied a broad range of subjects including Mathematics, English, Kiswahili, Religion, History, Biology, Chemistry, and Agriculture. This diverse academic background suggests a well-rounded individual with an aptitude for both technical and analytical subjects, as well as an understanding of different disciplines. His primary education at Sokoni Primary School (2014-2016) and Our Lady of Mercy Orore Marist Brothers (2006-2013) laid the foundation for his academic journey.</span></p>
+        <div class="about-details">
+            <div>
+                <h3>Experience</h3>
+                <p> <li><span style="font-weight: bold; color: #388e3c;">Team Work:</span> Indicates experience collaborating effectively with others.</li>
+                    <li><span style="font-weight: bold; color: #e20ec6;">Technically and problem-solving person:</span> This implies a hands-on approach and an eagerness to tackle challenges using my technical knowledge.</li>
+                    <li><span style="font-weight: bold; color: #970bee;">Experienced and dynamic professional:</span> This suggests involvement in activities or projects (possibly academic or extracurricular) where I have demonstrated professionalism and adaptability.</li>
+                    <li><span style="font-weight: bold; color: #92d90e;">Skilled in communication and leadership:</span> The mention of exceptional communication and leadership abilities points towards experiences where I have effectively interacted with and guided individuals and various groups of people.</li>
+                    <li><span style="font-weight: bold; color: #b57f12;"> Adept at thriving in high-pressure settings:</span> suggests the ability to perform effectively under demanding circumstances, likely gained through projects, events, or other collaborative endeavors.</li>
+                    <li><span style="font-weight: bold; color: #128bb0;"> Proactive in managing and coordinating:</span> This indicates organizational skills and the ability to take initiative in planning and executing tasks.</li>
+                    <li><span style="font-weight: bold; color: #3e388e;"> Committed to continuous learning:</span> This highlights a forward-thinking mindset and a dedication to staying updated with the latest industry trends and advancements.</li>
+                </p>
+            </div>
+            <div>
+                <h3>Education</h3>
+                <p>Iam currently pursuing a Bachelor's degree in Information System and Knowledge Management at Masinde Muliro University of Science and Technology (MMUST), with an expected graduation date yet to be determined (2022 to Date). This ongoing education signifies a dedicated pursuit of theoretical and practical knowledge in the field.</p><p>Prior to the university level, I had completed my secondary education at BL. Tezza Secondary School (2017-2021), where I studied a broad range of subjects including Mathematics, English, Kiswahili, Religion, History, Biology, Chemistry, and Agriculture. This diverse academic background suggests equip me as a well-rounded individual with an aptitude for both technical and analytical subjects, as well as an understanding of different disciplines.</p><p>My primary education at Sokoni Primary School (2014-2016) and Our Lady of Mercy Orore Marist Brothers (2006-2013) and many more like the then St. Johns Lakeside Accademy Kinda, God-Bura primary laid the foundation for my academic journey till when I joined secondary Edecation in God Oloo Before moving to BL.TEZZA.</p>
+            </div>
+        </div>
+        <a href="my resume (2).png" class="about-more-button">View My Resume/More Details</a>
+    </section>
+
+    <section id="skills">
+        <h2>My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <img src="image.png" alt="HTML">
+                <p><li>HTML</li><li>CSS</li><li>JAVASCRIPT</li><li>PHP</li></p>
+            </div>
+            <div class="skill-item">
+                <h1>Advancements</h1>
+                <p>
+                    <ul>
+                    <li><span style="color: #3f51b5;">Web Development & Design:</span> Suggests involvement in creating and designing web interfaces.</li>
+                    <li><span style="color: #3f51b5;">Data-Driven Strategic Planning:</span> Points towards the ability to analyze data and contribute to strategic decision-making.</li>
+                    <li><span style="color: #09cea3;">Report Writing & Presenting:</span> Indicates experience in documenting findings and communicating them effectively.</li>
+                    <li><span style="color: #3f51b5;">Cyber Security Awareness:</span> Suggests an understanding of and attention to security protocols.</li>
+                    <li><span style="color: #3f51b5;">Proactive and Self-Motivated:</span> Highlights personal attributes that likely translate into effective task completion and initiative-taking.</li>
+                    <li><span style="color: #28442d;">Exceptional Organizational Skills:</span> Reinforces their ability to manage tasks and information efficiently.</li>
+                    <li><span style="color: #3f51b5;">Excellent Communication Skills:</span>Supports the statement in the summary, implying practical application in various contexts.</li>
+                    <li><span style="color: #3f51b5;">Action-Oriented:</span> Suggests a drive to implement solutions and take practical steps.</li>
+                    <li><span style="color: #ef03c4;">Critical Thinking Skills:</span>Points to the ability to analyze information objectively and solve complex problems.</li>
+                    <li><span style="color: #3f51b5;">Process Improvement:</span> Suggests an understanding of optimizing workflows and efficiency.</li>
+                    <li><span style="color: #b6b9ca;">Basic Computer Literacy:</span> A foundational skill for their field.</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="skill-item">
+                <h1>Passion</h1>
+                <p> <li><span style="color: #388e3c;">Technology and Problem-Solving:</span> is explicitly stated in the resume summary as a driving force.
+                    <li><span style="color: #092ae3;">Creating Efficient and Effective Information Systems:</span> Their chosen field indicates a passion for leveraging technology to organize and disseminate information effectively.
+                    <li><span style="color: #36044a;">Empowering Organizations through Knowledge Management:</span> The interest in knowledge management suggests a passion for harnessing collective intelligence for organizational growth and innovation.
+                    <li><span style="color: #c008ee;">Leadership and Collaboration:</span> Their identified skills point towards an enjoyment in guiding and working with others to achieve common goals.
+                    <li><span style="color: #076166;">Continuous Learning and Development:</span> The pursuit of certifications in diverse areas suggests a passion for expanding their knowledge and skills.
+                    <li><span style="color: #072bf1;">Contributing to a Forward-Thinking Environment:</span> Their career aspiration indicates a desire to be part of innovative and progressive organizations.
+                    <li><span style="color: #c9b412;">Social Responsibility (Implied):</span> The certifications in areas like women in energy, disability inclusion, and peace training hint at an awareness and interest in broader societal issues.
+                    </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>My Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="ENVIROMENT/Camera/IMG_20230915_154942_955.jpg" alt="Project 1">
+                <h3>ENVIRONMENTAL CONSERVATION</h3>
+                <p>This is the practice of protecting, preserving, and managing natural resources and ecosystems. It aims to ensure the health of the environment and the sustainability of its resources for current and future generations.</p>
+                <a href="ENVIROMENT" target="_blank">View Project</a>
+            </div>
+            <div class="project-card">
+                <img src="ENVIROMENT/image.png" alt="Project 2">
+                <h3>DEVELOPING AN ENTERPRICE RESOURCE PLANNING</h3>
+                <p>ERP, or Enterprise Resource Planning, is a software system that integrates and automates core business processes like finance, HR, manufacturing, and supply chain, providing a unified view of business activity.</p>
+                <a href="MMMMMM" target="_blank">View Project</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p>I'd love to hear from you! Please use the contact details below or fill out the form.</p>
+            <ul>
+                <li><strong>Address:</strong> P.O.BOX 42-40307, Homa Bay, Kenya</li>
+                <li><strong>Phone:</strong> +254 713 491 049</li>
+                <li><strong>Email:</strong> okomocalvix@gmail.com</li>
+                <li><strong>Whatsaap:</strong> +254 713 491 049</li>
+            </ul>
+        </div>
+        <form action="#" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit" class="button">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 OKOMO CALVIX OYIER. Feel free to ask anything.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("learnMoreModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("learnMoreBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close-button")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Text-to-speech implementation
+        let synth = window.speechSynthesis;
+        let utterance = new SpeechSynthesisUtterance();
+        utterance.rate = 1;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        let isSpeaking = false;
+
+        function speak(text) {
+            if (isSpeaking) {
+                synth.cancel();
+            }
+            utterance.text = text;
+            synth.speak(utterance);
+            isSpeaking = true;
+            utterance.onend = () => {
+                isSpeaking = false;
+            };
+        }
+
+        document.addEventListener('mouseover', (event) => {
+            const element = event.target;
+            let text = element.textContent;
+
+             // Exclude speaking for input elements and buttons to avoid conflicts
+             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'BUTTON' || element.tagName === 'A') {
+                return;
+            }
+
+            // Find parent with a tag name.
+            const parentElement = findFirstTextContainer(element);
+            if (parentElement && parentElement.textContent) {
+                text = parentElement.textContent;
+            }
+
+            if (text) {
+                speak(text);
+            }
+        }, true);
+
+        function findFirstTextContainer(element) {
+            if (!element) return null;
+
+            if (element.childNodes.length > 0) {
+                for (let child of element.childNodes) {
+                    if (child.nodeType === Node.TEXT_NODE && child.textContent.trim() !== "") {
+                         return element;
+                    }
+                }
+            }
+             if (element.textContent && element.textContent.trim() !== "") {
+                    return element;
+            }
+
+            return findFirstTextContainer(element.parentElement);
+        }
+    </script>
+</body>
+</html>

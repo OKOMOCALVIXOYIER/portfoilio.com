@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> | Ecommerce Website Design</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?
+    family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+<body>
+    <div class="background">
+        <h1 style="color: black; background-color: blue;">BRESS ENTERPRICES</h1>
+        <P style="color: black; background-color: blue;"><b>Welcome to our online shopping platform. The best ever</b></P>
+       <br>
+        <h3 style="text-align: left; color: black; background-color: blue; max-width: fit-content;"><b>Menu items</b></h3>
+        <ul class="vertical-menu">
+            <li><a href="index.html"><b>Home</b></a></li>
+            <li><a href="products.html"><b>Products</b></a></li>
+            <li><a href="account.html"><b>account</b></a></li>
+        </ul>
+        <br>
+        <div class="col-2">
+            <div class="form-container">
+                <div class="form-btn">
+                    <span onclick="login()">Login</span>
+                    <span onclick="register()">Register</span>
+                    <hr id="Indicator">
+                </div>
+                <form id="LoginForm">
+                    <input type="text" placeholder="username">
+                    <input type="password" placeholder="password">
+                    <button type="submit" class="btn">Login</button>
+                    <a href="">Forgot password</a>
+                </form>
+                <form id="RegForm">
+                    <input type="text" placeholder="username">
+                    <input type="email" placeholder="Email">
+                    <input type="password" placeholder="password">
+                    <button type="submit" class="btn">Register</button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+   
+           
+
+
+ 
+ <!----------js for toggle menue-------->
+    <script>
+        var MenuItems = document.getElementById("MenuItems")
+
+        MenuItems.style.maxHeight = "0px";
+
+        function menutoggle(){
+            if( MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "200px";
+            }
+            else
+            {
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+
+
+    </script>   
+   
+ <!-------js for toggle form------->
+ 
+    <script>
+    var LoginForm = document.getElementById("LoginForm");
+    var RegForm = document.getElementById("RegForm");
+    var Indicator = document.getElementById("Indicator");
+
+          function register(){
+              RegForm.style.transform = "translateX(0px)";
+              LoginForm.style.transform = "translateX(0px)";
+              Indicator.style.transform = "translateX(100px)"; 
+          }
+          function login(){
+              RegForm.style.transform = "translateX(300px)";
+              LoginForm.style.transform = "translateX(300px)";
+              Indicator.style.transform = "translateX(0px)"; 
+          }   
+    </script><div style="margin: 20px;"><a href="products.html">↩️</a></div>
+</body>
+<footer style="height: 100px; margin-top: 0;">
+    <div class="footer-content">
+        <p>&copy;2023 JOREMASICA ENTERPRISES</p>
+        <h5>contact us</h5>
+        <p>phone: +254 713491049</p>
+        <p>email okomocalvix@gmail.com:</p>
+    </div>
+</footer>
+</html>
